@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include "funciones.h"
+#include "calculos.h"
 
 int main(void)
 {
