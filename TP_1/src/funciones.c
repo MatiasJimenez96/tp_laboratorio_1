@@ -9,8 +9,17 @@
 #include <stdlib.h>
 #include "funciones.h"
 
+double DiferenciaDePrecios(double aerolineas, double latam)
 
-
+{
+	double retorno;
+	retorno = aerolineas - latam;
+	if (retorno < 0)
+	{
+		retorno = retorno * -1;
+	}
+	return retorno;
+}
 
 int verificarIngresoDeDatos(int fAerolineas, int ffLatam, int fKm, int fBitCoin)
 {
@@ -23,36 +32,36 @@ int verificarIngresoDeDatos(int fAerolineas, int ffLatam, int fKm, int fBitCoin)
 	return retorno;
 }
 
-float CalcularPrecioBitCoin(float vuelo, float bitCoinPrecio)
+double CalcularPrecioBitCoin(double vuelo, double bitCoinPrecio)
 {
-	float retorno;
+	double retorno;
 	retorno = vuelo / bitCoinPrecio;
 	return retorno;
 }
 
-float CalcularPrecioPorKilometro(float vuelo, float km)
+double CalcularPrecioPorKilometro(double vuelo, double km)
 {
-	float retorno;
+	double retorno;
 	retorno = vuelo / km;
 	return retorno;
 
 }
 
-float CalcularInteresTarjetaCredito(float vuelo, float km)
+double CalcularInteresTarjetaCredito(double vuelo, double km)
 {
-	float retorno;
+	double retorno;
 	retorno = vuelo * 0.25;
 	retorno = vuelo + retorno;
 	return retorno;
 
 }
 
-float CalcularDescuentoTarjetaDebito(float vuelo, float km)
+double CalcularDescuentoTarjetaDebito(double vuelo, double km)
 {
 	/*3. Calcular todos los costos:
 	 a) Tarjeta de débito (descuento 10%)
 	 */
-	float retorno;
+	double retorno;
 	retorno = vuelo * 0.10;
 	retorno = vuelo - retorno;
 	return retorno;
@@ -117,7 +126,39 @@ int ImprimirMenuPrecioVuelos()
 	return opcion;
 }
 
-int ImprimirMenu(float km, float aerolineas, float vuelo, int fKm,
+void ImprimirResultadosLatam(double pDebitoLatam, double pCreditoLatam,
+		int fBitCoin, double pBitCoinLatam, double pKilometroLatam)
+{
+	printf("\n\n ***** RESULTADOS LATAM *****");
+	printf("\n\n Tarjeta debito:  %.2lf", pDebitoLatam);
+	printf("\n\n Tarjeta de crédito %.2lf", pCreditoLatam);
+	if (fBitCoin == 1)
+	{
+		printf("\n\n Bitcoin: %.8lf ", pBitCoinLatam);
+
+	}
+	printf("\n\n Precio unitario: %.2lf \n\n", pKilometroLatam);
+
+}
+
+void ImprimirResultadosAerolineas(double pdebitoAerolineas,
+		double pCreditoAerolineas, int fBitCoin, double pBitCoinAerolineas,
+		double pKilometroAerolineas)
+{
+	printf("***** RESULTADOS AEROLINEAS *****\n\n");
+	printf(" Tarjeta debito: %.2f \n\n ", pdebitoAerolineas);
+	printf("Tarjeta de crédito %.2f \n\n", pCreditoAerolineas);
+
+	if (fBitCoin == 1)
+	{
+		printf(" Bitcoin: %.8f \n\n", pBitCoinAerolineas);
+
+	}
+	printf(" Precio unitario: %.2f \n\n", pKilometroAerolineas);
+
+}
+
+int ImprimirMenu(double km, double aerolineas, double vuelo, int fKm,
 		int fAerolineas, int fvuelo)
 {
 	int opcion;
@@ -128,7 +169,7 @@ int ImprimirMenu(float km, float aerolineas, float vuelo, int fKm,
 	}
 	else
 	{
-		printf("1. Ingresar Kilometros: (Km = %.2f)\n", km);
+		printf("1. Ingresar Kilometros: (Km = %.2lf)\n", km);
 	}
 
 	if (fAerolineas == 0 && fvuelo == 0)
@@ -140,20 +181,20 @@ int ImprimirMenu(float km, float aerolineas, float vuelo, int fKm,
 		if (fAerolineas == 0 && fvuelo == 1)
 		{
 			printf(
-					"2. Ingresar Precio de Vuelos: (Aerolineas = y, Latam = %.2f)\n",
+					"2. Ingresar Precio de Vuelos: (Aerolineas = y, Latam = %.2lf)\n",
 					vuelo);
 		}
 		else if (fAerolineas == 1 && fvuelo == 0)
 		{
 			printf(
-					"2. Ingresar Precio de Vuelos: (Aerolineas = %.2f, Latam = z)\n",
+					"2. Ingresar Precio de Vuelos: (Aerolineas = %.2lf, Latam = z)\n",
 					aerolineas);
 		}
 		else
 		{
 
 			printf(
-					"2. Ingresar Precio de Vuelos: (Aerolineas = %.2f, Latam = %.2f)\n",
+					"2. Ingresar Precio de Vuelos: (Aerolineas = %.2lf, Latam = %.2lf)\n",
 					aerolineas, vuelo);
 		}
 	}
@@ -199,3 +240,16 @@ float IngresarFlotante(char mensaje[])
 	scanf("%f", &unFlotante);
 	return unFlotante;
 }
+
+double IngresarDouble(char mensaje[], int minimo, double maximo)
+{
+	double retorno;
+	do
+	{
+		printf("%s", mensaje);
+		scanf("%lf", &retorno);
+
+	} while (retorno < minimo || retorno > maximo);
+	return retorno;
+}
+

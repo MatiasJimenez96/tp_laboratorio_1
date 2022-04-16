@@ -7,20 +7,26 @@
 
 #ifndef FUNCIONES_H_
 #define FUNCIONES_H_
-
+double DiferenciaDePrecios(double aerolineas, double latam);
+void ImprimirResultadosLatam(double pDebitoLatam, double pCreditoLatam,
+		int fBitCoin, double pBitCoinLatam, double pKilometroLatam);
+void ImprimirResultadosAerolineas(double pdebitoAerolineas,
+		double pCreditoAerolineas, int fBitCoin, double pBitCoinAerolineas,
+		double pKilometroAerolineas);
 
 int verificarIngresoDeDatos(int fAerolineas, int fLatam, int fKm, int fbitCoin);
-float CalcularPrecioBitCoin(float latam, float bitCoinPrecio);
-float CalcularPrecioPorKilometro(float lata, float km);
-float CalcularInteresTarjetaCredito(float latam, float  km);
-float CalcularDescuentoTarjetaDebito(float latam, float km);
+double CalcularPrecioBitCoin(double latam, double bitCoinPrecio);
+double CalcularPrecioPorKilometro(double lata, double km);
+double CalcularInteresTarjetaCredito(double latam, double km);
+double CalcularDescuentoTarjetaDebito(double latam, double km);
 void ImprimirExitoAlCalcular();
 void ImprimirCasoIncorrecto();
 char menuSalida();
 int ImprimirMenuPrecioVuelos();
-int ImprimirMenu(float km, float aerolineas, float latam, int fKm,
+int ImprimirMenu(double km, double aerolineas, double latam, int fKm,
 		int fAerolineas, int fLatam);
 
+double IngresarDouble(char mensaje[], int minimo, double maximo);
 float IngresarFlotante(char mensaje[]);
 
 #endif /* FUNCIONES_H_ */

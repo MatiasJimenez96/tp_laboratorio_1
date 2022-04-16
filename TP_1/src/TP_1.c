@@ -19,13 +19,15 @@ int main(void)
 
 	char salida = 'n';
 	char salidax = 'n';
+	double dMax = 9999999999999;
 	//Precios
-	float aerolineas, latam, km, bitCoinPrecio;
+	double km, aerolineas, latam, bitCoinPrecio;
 	float pDebitoLatam, pCreditoLatam, pBitCoinLatam, pKilometroLatam,
 			pdebitoAerolineas, pCreditoAerolineas, pBitCoinAerolineas,
 			pKilometroAerolineas;
 	//Flag
-	int fAerolineas = 0, fLatam = 0, fKm = 0, fBitCoin = 0;
+	int fAerolineas = 0, fLatam = 0, fKm = 0, fBitCoin = 0, fPreciosCalculados =
+			0;
 
 	do
 	{
@@ -33,7 +35,8 @@ int main(void)
 		switch (ImprimirMenu(km, aerolineas, latam, fKm, fAerolineas, fLatam))
 		{
 		case 1:
-			km = IngresarFlotante("Ingresar kilometros: \n");
+
+			km = IngresarDouble("Ingresar kilometros: ", 0, dMax);
 			fKm = 1;
 			break;
 		case 2:
@@ -41,11 +44,12 @@ int main(void)
 			switch (ImprimirMenuPrecioVuelos())
 			{
 			case 1:
-				aerolineas = IngresarFlotante("Increaser precio Aerolineas: ");
+				aerolineas = IngresarDouble("Increaser precio Aerolineas: ", 0,
+						dMax);
 				fAerolineas = 1;
 				break;
 			case 2:
-				latam = IngresarFlotante("Ingresar precio Latam: ");
+				latam = IngresarDouble("Ingresar precio Latam: ", 0, dMax);
 				fLatam = 1;
 				break;
 
@@ -66,19 +70,21 @@ int main(void)
 						bitCoinPrecio);
 				pKilometroAerolineas = CalcularPrecioPorKilometro(aerolineas,
 						km);
+				fPreciosCalculados = 1;
 				printf(
-						"Se calcularon con exito los precios de Aerolineas... ");
+						"Se calcularon con exito los precios de Aerolineas... \n");
 				system("pause");
 
 			}
-			else if (fKm == 1 && fLatam == 1 && fAerolineas == 0)
+			else if (fLatam == 1 && fKm == 1 && fAerolineas == 0)
 			{
 
 				pDebitoLatam = CalcularDescuentoTarjetaDebito(latam, km);
 				pCreditoLatam = CalcularInteresTarjetaCredito(latam, km);
 				pBitCoinLatam = CalcularPrecioBitCoin(latam, bitCoinPrecio);
 				pKilometroLatam = CalcularPrecioPorKilometro(latam, km);
-				printf("Se calcularon con exito los precios de Latam... ");
+				fPreciosCalculados = 1;
+				printf("Se calcularon con exito los precios de Latam... \n");
 				system("pause");
 			}
 			else if (fKm == 1 && fLatam == 1 && fAerolineas == 1)
@@ -96,8 +102,9 @@ int main(void)
 				pCreditoLatam = CalcularInteresTarjetaCredito(latam, km);
 				pBitCoinLatam = CalcularPrecioBitCoin(latam, bitCoinPrecio);
 				pKilometroLatam = CalcularPrecioPorKilometro(latam, km);
+				fPreciosCalculados = 1;
 				printf(
-						"Se calcularon con exito los precios de Aerolineas y Latam... ");
+						"Se calcularon con exito los precios de Aerolineas y Latam... \n \n");
 				system("pause");
 			}
 			else
@@ -108,58 +115,37 @@ int main(void)
 
 			break;
 		case 4:
-			if (fAerolineas == 1 && fKm == 1 && fLatam == 0)
+			if (fAerolineas == 1 && fKm == 1 && fLatam == 0
+					&& fPreciosCalculados == 1)
 			{
-				printf("***** RESULTADOS AEROLINEAS *****\n\n");
-				printf(" Tarjeta debito: %.2f \n\n ", pdebitoAerolineas);
-				printf(" Tarjeta de crédito %.2f \n\n", pCreditoAerolineas);
-
-				if (fBitCoin == 1)
-				{
-					printf(" Bitcoin: %.2f \n\n", pBitCoinAerolineas);
-
-				}
-				printf(" Precio unitario: %.2f \n\n", pKilometroAerolineas);
+				ImprimirResultadosAerolineas(pdebitoAerolineas,
+						pCreditoAerolineas, fBitCoin, pBitCoinAerolineas,
+						pKilometroAerolineas);
+				system("pause");
 			}
-			else if (fKm == 1 && fLatam == 1 && fAerolineas == 0)
+			else if (fKm == 1 && fLatam == 1 && fAerolineas == 0
+					&& fPreciosCalculados == 1)
 			{
-				printf("\n\n ***** RESULTADOS LATAM *****");
-				printf("\n\n Tarjeta debito:  %.2f", pDebitoLatam);
-				printf("\n\n Tarjeta de crédito %.2f", pCreditoLatam);
-				if (fBitCoin == 1)
-				{
-					printf("\n\n Bitcoin: %.8f ", pBitCoinLatam);
-
-				}
-
-				printf("\n\n Precio unitario: %.2f \n\n", pKilometroLatam);
+				ImprimirResultadosLatam(pDebitoLatam, pCreditoLatam, fBitCoin,
+						pBitCoinLatam, pKilometroLatam);
+				system("pause");
 			}
-			else if (fKm == 1 && fLatam == 1 && fAerolineas == 1)
+			else if (fKm == 1 && fLatam == 1 && fAerolineas == 1
+					&& fPreciosCalculados == 1)
 			{
-				printf("***** RESULTADOS AEROLINEAS *****\n\n");
-				printf(" Tarjeta debito: %.2f \n\n ", pdebitoAerolineas);
-				printf(" Tarjeta de crédito %.2f \n\n", pCreditoAerolineas);
-				if (fBitCoin == 1)
-				{
-					printf(" Bitcoin: %.2f \n\n", pBitCoinAerolineas);
-
-				}
-				printf(" Precio unitario: %.2f \n\n", pKilometroAerolineas);
-				printf(" Precio unitario: %.2f \n\n", pKilometroAerolineas);
-
-				printf("\n\n ***** RESULTADOS LATAM *****");
-				printf("\n\n Tarjeta debito:  %.2f", pDebitoLatam);
-				printf("\n\n Tarjeta de crédito %.2f", pCreditoLatam);
-				{
-					printf("\n\n Bitcoin: %.8f ", pBitCoinLatam);
-
-				}
-				printf("\n\n Precio unitario: %.2f \n\n", pKilometroLatam);
+				ImprimirResultadosAerolineas(pdebitoAerolineas,
+						pCreditoAerolineas, fBitCoin, pBitCoinAerolineas,
+						pKilometroAerolineas);
+				ImprimirResultadosLatam(pDebitoLatam, pCreditoLatam, fBitCoin,
+						pBitCoinLatam, pKilometroLatam);
+				printf("La diferencia entre precios es: %.2lf \n",
+						DiferenciaDePrecios(aerolineas, latam));
+				system("pause");
 			}
 
 			else
 			{
-				printf("\n\nFaltan ingresar datos.\n");
+				printf("\n\nNo se realizaron los calculos...\n");
 				system("pause");
 			}
 
@@ -195,9 +181,11 @@ int main(void)
 				fAerolineas = 0;
 				fLatam = 0;
 				fKm = 0;
-				//fBitCoin = 0;
-				printf("Eliminando datos...");
+				fBitCoin = 0;
+				fPreciosCalculados = 0;
+				printf("Eliminando datos...\n");
 				system("pause");
+
 			}
 			break;
 		case 7: // imprimo menu de salida y me devuelve una opcion
