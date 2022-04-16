@@ -44,7 +44,7 @@ int main(void)
 			switch (ImprimirMenuPrecioVuelos())
 			{
 			case 1:
-				aerolineas = IngresarDouble("Increaser precio Aerolineas: ", 0,
+				aerolineas = IngresarDouble("Ingresar precio Aerolineas: ", 0,
 						dMax);
 				fAerolineas = 1;
 				break;
@@ -63,9 +63,9 @@ int main(void)
 			if (fAerolineas == 1 && fKm == 1 && fLatam == 0)
 			{
 				pdebitoAerolineas = CalcularDescuentoTarjetaDebito(aerolineas,
-						km);
+						10);
 				pCreditoAerolineas = CalcularInteresTarjetaCredito(aerolineas,
-						km);
+						25);
 				pBitCoinAerolineas = CalcularPrecioBitCoin(aerolineas,
 						bitCoinPrecio);
 				pKilometroAerolineas = CalcularPrecioPorKilometro(aerolineas,
@@ -79,8 +79,8 @@ int main(void)
 			else if (fLatam == 1 && fKm == 1 && fAerolineas == 0)
 			{
 
-				pDebitoLatam = CalcularDescuentoTarjetaDebito(latam, km);
-				pCreditoLatam = CalcularInteresTarjetaCredito(latam, km);
+				pDebitoLatam = CalcularDescuentoTarjetaDebito(latam, 10);
+				pCreditoLatam = CalcularInteresTarjetaCredito(latam, 25);
 				pBitCoinLatam = CalcularPrecioBitCoin(latam, bitCoinPrecio);
 				pKilometroLatam = CalcularPrecioPorKilometro(latam, km);
 				fPreciosCalculados = 1;
@@ -90,16 +90,16 @@ int main(void)
 			else if (fKm == 1 && fLatam == 1 && fAerolineas == 1)
 			{
 				pdebitoAerolineas = CalcularDescuentoTarjetaDebito(aerolineas,
-						km);
+						10);
 				pCreditoAerolineas = CalcularInteresTarjetaCredito(aerolineas,
-						km);
+						25);
 				pBitCoinAerolineas = CalcularPrecioBitCoin(aerolineas,
 						bitCoinPrecio);
 				pKilometroAerolineas = CalcularPrecioPorKilometro(aerolineas,
 						km);
 
-				pDebitoLatam = CalcularDescuentoTarjetaDebito(latam, km);
-				pCreditoLatam = CalcularInteresTarjetaCredito(latam, km);
+				pDebitoLatam = CalcularDescuentoTarjetaDebito(latam, 10);
+				pCreditoLatam = CalcularInteresTarjetaCredito(latam, 25);
 				pBitCoinLatam = CalcularPrecioBitCoin(latam, bitCoinPrecio);
 				pKilometroLatam = CalcularPrecioPorKilometro(latam, km);
 				fPreciosCalculados = 1;

@@ -32,38 +32,39 @@ int verificarIngresoDeDatos(int fAerolineas, int ffLatam, int fKm, int fBitCoin)
 	return retorno;
 }
 
-double CalcularPrecioBitCoin(double vuelo, double bitCoinPrecio)
+double CalcularPrecioBitCoin(double precio, double bitCoinPrecio)
 {
 	double retorno;
-	retorno = vuelo / bitCoinPrecio;
+	retorno = precio / bitCoinPrecio;
 	return retorno;
 }
 
-double CalcularPrecioPorKilometro(double vuelo, double km)
+double CalcularPrecioPorKilometro(double precio, double km)
 {
 	double retorno;
-	retorno = vuelo / km;
-	return retorno;
-
-}
-
-double CalcularInteresTarjetaCredito(double vuelo, double km)
-{
-	double retorno;
-	retorno = vuelo * 0.25;
-	retorno = vuelo + retorno;
+	retorno = precio / km;
 	return retorno;
 
 }
 
-double CalcularDescuentoTarjetaDebito(double vuelo, double km)
+double CalcularInteresTarjetaCredito(double precio, float interes)
 {
-	/*3. Calcular todos los costos:
-	 a) Tarjeta de débito (descuento 10%)
-	 */
 	double retorno;
-	retorno = vuelo * 0.10;
-	retorno = vuelo - retorno;
+	interes = interes /100;
+
+	retorno = precio * interes;
+	retorno = precio + retorno;
+	return retorno;
+
+}
+
+double CalcularDescuentoTarjetaDebito(double precio, float descuento)
+{
+	double retorno;
+	descuento = descuento / 100;
+
+	retorno = precio * descuento;
+	retorno = precio - retorno;
 	return retorno;
 
 }
